@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'community/css/search_result.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body>
+    <header class="header" id="hd">
+        <div class="gnb gnb_green">
+            <div class="cafe_name">
+                <h1 class="h_tit ellip"><a href="{% url 'community:index' %}" class="cafe_name_title">부경IN</a></h1>
+            </div>
+            <div class="btns">
+                <a href="javascript:history.back();" class="btn gnb_prev _stopDefault"><i class="la la-arrow-left"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div id="ct" class="contents">
+        <div class="search_arae" role="search" id="searchBox">
+            <form action="{% url 'community:search' %}" id="myCafeSearchForm" method="GET">
+                <input type="hidden" id="category" name="category" value="">
+                <input type="hidden" id="type" name="type" value="description">
+                <input type="hidden" id="order" name="order" value="-writed_time">
+                <div class="input_wrap">
+                    <div class="input_txt">
+                        <input type="text" id="searchQuery" name="keyword" value="" placeholder="검색어 입력"
+                            autocomplete="off" maxlength="255">
+                    </div>
+                    <div class="input_btn">
+                        <a href="javascript:void(0)" class="del_btn _stopDefault"><i class="la la-close"></i></a>
+                        <a href="javascript:void(0)" onclick="document.getElementById('myCafeSearchForm').submit();" class="search_btn _stopDefault"><i class="la la-search"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="no_keyword" style="display: block;">검색어를 입력하세요.</div>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+{% endblock %}
+
+{% block script %}
+<script>
+    function fnMove(seq){
+        var offset = $("#" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+</script>
+<script>
+    
+</script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/extends.js' %}"></script>
+{% endblock %}
+</html>

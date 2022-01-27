@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'community/css/write.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body id='body'>
+    <header class="header" id="hd">
+        <div class="hd_cafe_v2">
+            <div class="btns">
+                <div class="btns_left">
+                    <a href="javascript:history.back();" class="btn btn_close _stopDefault">
+                        <i class="la la-close"></i></a>
+                </div>
+                <div class="btns_right">
+                    <a href="javascript:void(0)" onclick="setFormData();" class="btn btn_confirm _stopDefault"><span>등록</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="ct" class="post_write form_style1">
+        <form method="POST" id="write_form">
+            {% csrf_token %}
+        <div class="form_group last">
+            <select name="category" id="menuid_list" class="selectbox">
+                <option>게시판을 선택해주세요.</option>
+                <option value="FRE" wf="true" wfid="7" trade="" openyn="1">
+                    자유게시판
+                </option>
+                <option value="BMB" wf="" wfid="" trade="" openyn="">
+                    대나무숲
+                </option>
+                <option value="TWK" wf="true" wfid="22" trade="" openyn="1">
+                    반짝정원
+                </option>
+                <option value="LAF" wf="true" wfid="22" trade="" openyn="1">
+                    분실물
+                </option>
+            </select>
+        </div>
+
+        <div class="form_group">
+            <input type="text" name="title" class="inputbox" id="subject" title="제목" placeholder="제목" value="">
+        </div>
+        
+        <div class="form_group last" id="upload">
+
+                <ul></ul>
+                <div class="sel_tool">
+                    <div class="sel_tool_switch">
+                        <button type="button" id="drop_file"></button>
+                        <input type="file" accept="image/*" name="upl" multiple style="display: none;"/>
+                    </div>
+                </div>
+            </form>
+            <textarea id="description" name="description" class="inputbox" value="" style="width: 100%; height: 300px"></textarea>
+        </div>
+        </form>
+        <div class="btns_group_footer btns_group_hr_flex"> 
+            <div class="btn_cell" id="btm_tempsave_btn">
+                    <a href="javascript:history.back();" class="btn btn_normal light _stopDefault"><span>취소</span></a>
+            </div> 
+            <div class="btn_cell"> 
+                    <a href="javascript:void(0)" class="btn btn_primary _stopDefault" onclick="setFormData();"><span>등록</span></a> 
+            </div> 
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+{% endblock %}
+
+{% block script %}
+<!-- 플러그인 이용 URL https://tutorialzine.com/2013/05/mini-ajax-file-upload-form -->
+<script src="{% static 'vendors/fileupload/jquery.fileupload.js' %}"></script>
+<script src="{% static 'community/js/write.js' %}"></script>
+<script>
+    function submit(formData){
+        $.ajax({
+            url: "{% url 'community:write_post' %}",
+            headers: { "X-CSRFToken": getCookie('csrftoken') },
+            enctype: 'multipart/form-data',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            async: false,
+            success: function(response){
+                if(response.result===true){
+                    window.location.replace(response.url)
+                }
+                else{
+                    alert(response.message);
+                }
+            },
+             error: function(response){
+                console.log(response.responseText);
+             }
+        })
+    }
+    function fnMove(seq){
+        var offset = $("#" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+</script>
+{% endblock %}
+</html>

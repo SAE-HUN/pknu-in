@@ -1,0 +1,430 @@
+body {
+    position: relative;
+    background: #f5f6f7;
+}
+body, button, input, select, table, textarea {
+    font-family: Dotum, 돋움, Helvetica, sans-serif;
+    font-size: 12px;
+    text-size-adjust: none;
+}
+button, input, select, textarea {
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+:root .input_chk label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    background: #f5f6f7 url(https://static.nid.naver.com/images/ui/myinfo/pc_chcek_off_s_20.png) no-repeat 0 0;
+    -webkit-background-size: 20px 20px;
+    background-size: 20px 20px;
+}
+:root .terms_chk_all .input_chk label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    width: 24px;
+    height: 24px;
+    margin-top: -14px;
+    background: #f5f6f7 url(https://static.nid.naver.com/images/ui/myinfo/pc_check_off_24.png) no-repeat 0 0;
+    -webkit-background-size: 24px 24px;
+    background-size: 24px 24px;
+}
+:root .input_chk input:checked+label:before {
+    content: '';
+    background: #f5f6f7 url(../../images/icon/pc_chcek_on_s_20.png) no-repeat 0 0;
+    -webkit-background-size: 20px 20px;
+    background-size: 20px 20px;
+}
+:root .terms_chk_all .input_chk input:checked+label:before {
+    content: '';
+    background: #f5f6f7 url(../../images/icon/pc_check_on_l_24.png) no-repeat 0 0;
+    -webkit-background-size: 24px 24px;
+    background-size: 24px 24px;
+}
+#container, #footer, #header {
+    margin: 0 auto;
+    max-width: 768px;
+    min-width: 460px;
+}
+.ipin_box, .row_group {
+    overflow: hidden;
+    width: 100%;
+}
+.int {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 29px;
+    line-height: 29px;
+    border: none;
+    background: #fff;
+    font-size: 15px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 10;
+    *position: absolute;
+    *top: 0;
+    *left: 0;
+    apperance: none;
+    -webkit-apperance: none;
+}
+#header {
+    position: relative;
+    overflow: hidden;
+    padding: 62px 0 59px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#header .h_logo {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    width: 240px;
+    height: 44px;
+    margin: 0 auto;
+    background-position: -1px -1px;
+    -webkit-background-size: 460px auto;
+    background-size: 460px auto;
+}
+
+#content {
+    width: 460px;
+    margin: 0 auto;
+}
+.article, .policy_summary {
+    font-size: 12px;
+    line-height: 16px;
+    color: #666;
+}
+.article:first-child {
+    margin-top: 0;
+}
+.input_chk {
+    position: relative;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.input_chk input {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    margin-top: -10px;
+    outline: 0;
+}
+.input_chk label {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-left: 29px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    cursor: pointer;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.terms_chk_all .input_chk label {
+    padding-left: 34px;
+    line-height: 21px;
+}
+
+.terms_necessary {
+    font-size: 12px;
+    font-weight: 400;
+    display: inline-block;
+    color: #2080b9;
+}
+.terms_choice {
+    color: #8e8e8e;
+}
+.input_chk label .terms_choice {
+    font-size: 12px;
+    font-weight: 400;
+    color: #2080b9;
+}
+.input_chk label .terms_no {
+    color: #8e8e8e;
+}
+.terms_bx_list {
+    margin-top: 4px;
+}
+.terms_bx {
+    display: block;
+    padding-top: 30px;
+}
+.terms_box {
+    position: relative;
+    overflow: auto;
+    height: 88px;
+    margin-top: 8px;
+    padding: 12px;
+    border: 1px solid #dadada;
+    background: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    scrollbar-base-color: #d9d9d9;
+    scrollbar-arrow-color: #8e8e8e;
+    scrollbar-3dlight-color: #d9d9d9;
+    scrollbar-darkshadow-color: #d9d9d9;
+    scrollbar-face-color: #d9d9d9;
+    scrollbar-highlight-color: #d9d9d9;
+    scrollbar-shadow-color: #d9d9d9;
+    scrollbar-track-color: #f2f2f2;
+    -webkit-overflow-scrolling: touch;
+}
+.terms_box .article {
+    font-size: 12px;
+    line-height: 16px;
+    color: #666;
+    word-break: keep-all;
+}
+.article ol {
+    padding-inline-start: 40px;
+}
+.article ol li {
+    list-style: decimal;
+}
+.article ol ul {
+    padding-inline-start: 40px;
+}
+.article ol ul li {
+    list-style: disc;
+}
+.article .article__title {
+    padding-bottom: 8px;
+}
+.article__text+.article__text {
+    margin-top: 8px;
+}
+.article .article__title, .clause .clause__title, .paragraph .paragraph__title {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+}
+.btn_area {
+    margin: 30px 0 9px;
+}
+.btn_area.double {
+    overflow: hidden;
+    margin: 29px -5px 0;
+}
+.btn_area.double>span {
+    display: block;
+    float: left;
+    width: 50%;
+}
+.btn_area.double span:before {
+    content: '';
+    display: block;
+    clear: both;
+}
+.btn_type {
+    display: block;
+    width: 100%;
+    padding: 21px 0 17px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.btn_area>span .btn_type {
+    width: auto;
+    margin: 0 5px;
+}
+.btn_default {
+    color: #fff;
+    background-color: #8e8e8e;
+}
+.btn_primary {
+    color: #fff;
+    background-color: #2080b9;
+}
+.group_join {
+    margin: 19px 0 8px;
+    text-align: center;
+    color: #666;
+}
+a.btn_group_join {
+    text-decoration: underline;
+    color: #333;
+}
+a.btn_group_join:hover, a.btn_group_join:visited {
+    text-decoration: underline;
+    color: #333;
+}
+
+.join_row strong#nicknameMsg {
+    display: block;
+    padding-top: 10px;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #03c75a;
+}
+
+.join_title {
+    margin: 19px 0 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.ps_box, .ps_box_disable {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 51px;
+    border: solid 1px #dadada;
+    padding: 10px 14px 10px 14px;
+    background: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+.ps_box.int_id {
+    padding-right: 110px;
+}
+.ps_box.int_pass, .ps_box.int_pass_check, .ps_box.int_pass_check2 {
+    padding-right: 40px;
+}
+.step_url {
+    position: absolute;
+    top: 16px;
+    right: 13px;
+    font-size: 15px;
+    line-height: 18px;
+    color: #8e8e8e;
+}
+
+#footer {
+    clear: both;
+    margin: 0 auto;
+    padding: 30px 0 15px 0;
+    text-align: center;
+}
+#footer * {
+    font-size: 12px;
+    font-style: normal;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #333;
+}
+#footer ul {
+    margin: 0 0 9px 0;
+}
+#footer ul li {
+    font-size: 12px;
+    position: relative;
+    display: inline;
+    padding: 0 3px 0 7px;
+    white-space: nowrap;
+    background: url(https://static.nid.naver.com/images/join/pc/bu_bar_2x.gif) left 50% no-repeat;
+    -webkit-background-size: 1px 10px;
+    background-size: 1px 10px;
+}
+#footer ul li:first-child {
+    background: 0 0;
+}
+#footer a {
+    text-decoration: none;
+    color: #333;
+}
+#footer a:visited {
+    text-decoration: none;
+    color: #666;
+}
+#footer address {
+    font: 9px/14px Verdana;
+}
+#footer address em {
+    font: 9px verdana;
+    padding-left: 4px;
+}
+@media (max-width: 1024px){
+    :root .input_chk label:before {
+        width: 20px;
+        height: 20px;
+        background: #f5f6f7 url(https://static.nid.naver.com/images/ui/myinfo/m_chcek_off_s_20.png) no-repeat 0 0;
+        -webkit-background-size: 20px 20px;
+        background-size: 20px 20px;
+    }
+    :root .terms_chk_all .input_chk label:before {
+        background: #f5f6f7 url(https://static.nid.naver.com/images/ui/myinfo/m_check_off_24.png) no-repeat 0 0;
+        -webkit-background-size: 24px 24px;
+        background-size: 24px 24px;
+    }
+    :root .input_chk input:checked+label:before {
+        background: #f5f6f7 url(../../images/icon/m_chcek_on_s_20.png) no-repeat 0 0;
+        -webkit-background-size: 20px 20px;
+        background-size: 20px 20px;
+    }
+    :root .terms_chk_all .input_chk input:checked+label:before {
+        background: #f5f6f7 url(../../images/icon/m_check_on_l_24.png) no-repeat 0 0;
+        -webkit-background-size: 24px 24px;
+        background-size: 24px 24px;
+    }
+    #container {
+        width: auto;
+        max-width: 768px;
+    }
+    #content {
+        width: 460px;
+        margin: 0 auto;
+    }
+    .btn_type {
+        font-weight: 400;
+    }
+    .group_join {
+        margin-bottom: -2px;
+    }
+    #footer a, #footer a:visited {
+        color: #7e7e7e;
+    }
+}
+
+@media (max-width: 767px){
+    #container, #footer, #header {
+        min-width: auto;
+        margin: 0 10px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    #content {
+        max-width: 460px;
+        width: auto;
+    }
+    .btn_group_join {
+        display: block;
+        padding-top: 3px;
+    }
+    #header {
+        padding: 46px 0 37px;
+    }
+}
+
+@media (max-width: 375px){
+    .terms_chk_all input {
+        margin-top: -9px;
+    }
+}

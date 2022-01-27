@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'account/css/mypage.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body id="body_wrapper">
+    <header class="header fix">
+        <div id="gnb" class="profile_bar">
+            <a href="{% url 'community:index' %}" class="link_prev _stopDefault">
+                <span class="ico_cafe ico_prev">
+                    <i class="la la-angle-left"></i></span>
+                <span class="txt_prev" id="gnbCafeName">부경IN</span>
+            </a>    
+        </div>
+    </header>
+    <div class="wrap_profile">
+        <div class="profile_head" id="memberInfo">            
+            <div class="my_area">
+                <div class="thumb_profile">        
+                    <img src="{{ user.profile.profile_image }}" class="thumb" alt="프로필사진">
+                </div>
+                <div class="info_profile">
+                    <div class="inner">
+                        <strong class="nick"><span class="txt">{{ user.profile.nickname }}</span></strong>   
+                        <span class="id"><em class="txt">ID</em>{{ user.username|make_list|slice:":4"|join:"" }}*****</span>         
+                        <div class="info">
+                            <a href="{% url 'account:set-profile' %}" class="btn_go _stopDefault">프로필 설정</a>
+                            <a href="{% url 'account:find-password' %}" class="btn_go _stopDefault">비밀번호 설정</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile_tab">       	
+            <div class="inner_tab" id="tabContainer" data-uc-tab>
+                <ul class="list_tab is-tab-nav">                    
+                    <li id="articleListTab" class="is-active">
+                        <a href="#tab-1" data-uc-click="tab" class="link_tab _stopDefault"><span class="inner">작성글</span></a>
+                    </li>
+                    
+                    <li id="commentListTab" class="">
+                        <a href="#tab-3" data-uc-click="tab" class="link_tab _stopDefault"><span class="inner">댓글</span></a>
+                    </li>
+                    
+                    <li id="likeItListTab" class="">
+                        <a href="#tab-4" data-uc-click="tab" class="link_tab _stopDefault"><span class="inner">좋아요한 글</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% include 'account/my_contents.html' %}
+    </div>
+    {% include 'footer.html' %}
+</body>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/extends.js' %}"></script>
+<script>
+    function fnMove(seq){
+        var offset = $("#" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+</script>
+{% endblock %}
+</html>

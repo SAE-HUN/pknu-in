@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'community/css/report.css' %}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <header class="header" id="hd">
+        <div class="hd_cafe_v2 report_header">
+            <div class="cafe_name">
+                <h1 class="h_tit ellip">신고하기</h1>
+            </div>
+            <div class="btns">
+                <a href="javascript:history.back();" class="btn btn_close _stopDefault"></a>
+            </div>
+        </div>
+    </header>
+    <div id="ct" role="main" class="report_ct">
+        <div class="c_rp_top">
+            <div class="c_rp_dtl">
+                <em class="c_rp_dtlt">작성자</em>
+                <p class="c_rp_dtlw">
+                    {% if recomment.post.category == 'NTC' or recomment.post.category == 'BMB' %}
+                    익명
+                    {% else %}
+                    {{ recomment.writer.nickname }}
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="c_rp_dtl">
+                <em class="c_rp_dtlt">내 용</em>
+                <p class="c_rp_dtlc">{{ recomment.content }}</p>
+            </div>
+
+        </div>
+        <div class="c_rp_lst">
+            <form id="reportFrm" name="reportFrm" method="post" action="{% url 'community:report_recomment' recomment.id %}">
+                {% csrf_token %}
+                <ul class="wp">
+                    <li class="itm"><label onclick="" class="lbl">게시판에 적합하지않은 게시물
+                        <input type="radio" name="reason" value="DFB" class="inprd" checked="checked">
+                    </label></li>
+                    <li class="itm"><label onclick="" class="lbl">허가받지 않은 홍보게시물
+                        <input type="radio" name="reason" value="UPP" class="inprd">
+                    </label></li>
+                    <li class="itm"><label onclick="" class="lbl">특정인을 유추하여 명예훼손이 가능한 게시물
+                        <input type="radio" name="reason" value="DBI" class="inprd">
+                    </label></li>
+                    <li class="itm"><label onclick="" class="lbl">기타
+                        <input type="radio" name="reason" value="ETC" class="inprd">
+                    </label></li>
+                </ul>
+            </form>
+        </div>
+        <div class="c_rp_btnar">
+            <a href="javascript:history.back();" class="c_rp_btn report_cancel_btn">취소</a>
+            <a href="javascript:void(0)" onclick="document.getElementById('reportFrm').submit();" class="c_rp_btn _stopDefault">신고하기</a>
+        </div>
+    </div>
+    <div id="footer" role="contentinfo">
+        <ul>
+            <li><a href="">이용약관</a></li>
+            <li><strong><a href="">개인정보처리방침</a></strong></li>
+            <li><a href="">책임의 한계와 법적고지</a></li>
+            <li><a href="" target="_blank">회원정보 고객센터 </a></li>
+        </ul>
+        <address>
+            <span class="all_r">All Rights Reserved.</span>
+        </address>
+    </div>
+</body>
+{% endblock %}
+
+</html>

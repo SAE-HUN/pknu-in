@@ -1,0 +1,11 @@
+{% if posts.has_next %}
+<div class="u_cbox_paginate_ico" id="btnNextList">
+    <a onclick="more('{{ posts.next_page_number }}');" class="u_cbox_btn_more _stopDefault">
+        <span class="u_cbox_more_wrap">
+            <span class="u_cbox_box_more">
+                <span class="u_cbox_page_more">더보기</span>
+            </span>
+        </span>
+    </a>
+</div>
+{% endif %}

@@ -1,0 +1,54 @@
+<div class="u_cbox">
+    <div class="u_cbox_wrap">
+        <div class="u_cbox_content_wrap">
+            <div class="u_cbox_write_wrap list_u_cbox_write">
+                <div id="writeBox" class="u_cbox_write_box u_cbox_type_logged_in u_cbox_focus">
+                    <form action="{% url 'community:write_comment' post.category post.id %}" method="POST">
+                        <fieldset style='border: 0;'>
+                            <div class="u_cbox_write">
+                                <div class="u_cbox_write_inner">
+                                    <div class="u_cbox_profile_area">
+                                        <div class="u_cbox_profile">
+                                            <div class="u_cbox_thumb">
+                                                <a href="#none" class="u_cbox_thumb_wrap">
+                                                    <img src="https://ssl.pstatic.net/static/common/comment/img_default_profile.gif" alt="프로필사진" class="u_cbox_img_profile">
+                                                    <span class="u_cbox_thumb_mask"></span>
+                                                </a>
+                                            </div>
+                                            {% if user.is_authenticated %}
+                                            <div class="u_cbox_box_name">
+                                                <span class="u_cbox_write_name">{{ user.profile.nickname }}</span>
+                                            </div>
+                                            {% else %}
+                                            <div class="u_cbox_box_name">
+                                                <a href="javascript:void(0)" onclick="login()"><span class="u_cbox_write_name">로그인 해주세요.</span></a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="u_cbox_write_area">
+                                        <strong class="u_vc">댓글 입력</strong>
+                                        <div class="u_cbox_inbox">
+                                            <textarea id="content" name="content" placeholder="댓글을 남겨보세요." class="u_cbox_text" rows="3" cols="30"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="u_cbox_upload">
+                                        {% if user.is_authenticated %}
+                                        <button type="button" onclick="write_comment(this)" class="u_cbox_btn_upload _stopDefault">
+                                            <span class="u_cbox_txt_upload">등록</span>
+                                        </button>
+                                        {% else %}
+                                        <button type="button" onclick="login()" class="u_cbox_btn_upload _stopDefault">
+                                            <span class="u_cbox_txt_upload">로그인</span>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

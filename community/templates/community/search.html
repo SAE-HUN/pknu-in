@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'community/css/search_result.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body>
+    <header class="header" id="hd">
+        <div class="gnb gnb_green">
+            <div class="cafe_name">
+                <h1 class="h_tit ellip"><a href="{% url 'community:index' %}" class="cafe_name_title">부경IN</a></h1>
+            </div>
+            <div class="btns">
+                <a href="javascript:history.back();" class="btn gnb_prev _stopDefault"><i class="la la-arrow-left"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div id="ct" class="contents">
+        <div class="search_arae" role="search" id="searchBox">
+            <form action="{% url 'community:search' %}" id="myCafeSearchForm" method="GET">
+                <input type="hidden" id="category" name="category" value="{{ category }}">
+                <input type="hidden" id="type" name="type" value="{{ type }}">
+                <input type="hidden" id="order" name="order" value="{{ order }}">
+                <div class="input_wrap">
+                    <div class="input_txt">
+                        <input type="text" id="keyword" name="keyword" value="{{ keyword }}" placeholder="검색어 입력"
+                            autocomplete="off" maxlength="255">
+                    </div>
+                    <div class="input_btn">
+                        <a href="javascript:void(0)" onclick="" class="del_btn _stopDefault"><i class="la la-close"></i></a>
+                        <a href="javascript:void(0)" onclick="set_search('keyword', document.getElementById('keyword').value)" class="search_btn _stopDefault"><i class="la la-search"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="search_contents">         
+            <div class="search_board_selete uc-dropdown-menu" data-uc-dropdown="click">
+                {% if category == '' %}
+                <a href="javascript:void(0)" id="menuSelectBox" class="selete_btn _stopDefault is-dropdown-toggle">전체 게시판</a>
+                {% elif category == 'FRE' %}
+                <a href="javascript:void(0)" id="menuSelectBox" class="selete_btn _stopDefault is-dropdown-toggle">자유게시판</a>
+                {% elif category == 'BMB' %}
+                <a href="javascript:void(0)" id="menuSelectBox" class="selete_btn _stopDefault is-dropdown-toggle">대나무숲</a>
+                {% elif category == 'TWK' %}
+                <a href="javascript:void(0)" id="menuSelectBox" class="selete_btn _stopDefault is-dropdown-toggle">반짝정원</a>
+                {% elif category == 'LAF' %}
+                <a href="javascript:void(0)" id="menuSelectBox" class="selete_btn _stopDefault is-dropdown-toggle">분실물</a>
+                {% endif %}
+                <ul class="is-dropdown-wrapper">
+                    <li><a href="javascript:void(0)" onclick="set_search('category', '')">전체게시판</a></li>
+                    <li><a href="javascript:void(0)" onclick="set_search('category', 'FRE')">자유게시판</a></li>
+                    <li><a href="javascript:void(0)" onclick="set_search('category', 'BMB')">대나무숲</a></li>
+                    <li><a href="javascript:void(0)" onclick="set_search('category', 'TWK')">반짝정원</a></li>
+                    <li><a href="javascript:void(0)" onclick="set_search('category', 'LAF')">분실물</a></li>
+                </ul>
+            </div>
+
+            <div class="search_tab">
+                <ul class="tabs is-tab-nav">
+                    <li id="description"><a href="javascript:void(0)" onclick="set_search('type', 'description')" data-uc-click="tab" class="_stopDefault">제목+내용</a></li>
+                    <li id="title"><a href="javascript:void(0)" onclick="set_search('type', 'title')" data-uc-click="tab" class="_stopDefault">제목</a></li>
+                    <li id="author"><a href="javascript:void(0)" onclick="set_search('type', 'author')" data-uc-click="tab" class="_stopDefault">작성자</a></li>
+                </ul>
+            </div>
+
+            <div class="search_sort">
+                <div class="sort_l">검색결과 <span class="num">{{ posts.paginator.count }}</span>건</div>
+                <div class="sort_r uc-dropdown-menu" data-uc-dropdown="click">
+                    <span class="search_select">
+                        <a href="javascript:void(0)" class="search_selected is-dropdown-toggle" id="search_sortBy_2">
+                            {% if order == '-writed_time' %}
+                            최신순
+                            {% elif order == '-views' %}
+                            조회순
+                            {% endif %}
+                        </a>
+                        <ul class="search_select_design is-dropdown-wrapper">
+                            <li id="-views" class="search_select_list "><a href="javascript:void(0)" onclick="set_search('order', '-views')" class="_stopDefault">조회순</a></li>
+                            <li id="-writed_time" class="search_select_list "><a href="javascript:void(0)" onclick="set_search('order', '-writed_time')" class="_stopDefault">최신순</a></li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+            <div class="search_list">
+                <div id="articleList" class="tab-contents">
+                    <ul class="lst_section tab-pane is-show is-active">
+                        {% include 'community/search_list.html' %}
+                    </ul>
+                    {% include 'community/pagination_search.html' %}
+                </div>
+                <div id="loadingBar" class="loader" style="display:none;">
+                    <img src="" width="24" height="24" alt="데이터 요청 응답 대기중">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+{% endblock %}
+
+{% block script %}
+<script>
+    function fnMove(seq){
+        var offset = $("#" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+    function more(keyword, category, type, order, page){
+        $.ajax({
+            url: "/search/" + page,
+            type: "GET",
+            dataType: "json",
+            data: {
+                keyword: keyword,
+                category: category,
+                type: type,
+                order: order
+            },
+            success: function(response){
+                if(history.state){
+                    var stateObj = {
+                        posts: history.state["posts"] + response.posts
+                    };
+                }
+                else{
+                    var stateObj = {
+                        posts: response.posts
+                    };
+                }
+                stateObj['pagination'] = response.pagination;
+                history.pushState(stateObj, "posts", "");
+                $("#moreButtonArea").remove(); //더보기 버튼 삭제
+                $('.lst_section').append(response.posts); //글목록 + 더보기 버튼 추가
+                $('.lst_section').append(response.pagination);
+            }
+        })
+    }
+
+    $(document).ready(function(){
+        if (performance.navigation.type ==! 2 || performance.navigation.type === 1){
+            history.replaceState(null, "", "");
+        }
+        if (performance.navigation.type == 2){
+            if(history.state){
+                $("#moreButtonArea").remove();
+                $('.lst_section').append(history.state['posts']);
+                $('.lst_section').append(history.state['pagination']);
+            }
+        }
+    })
+
+    function set_search(item, value){
+        document.getElementById(item).value = value;
+        document.getElementById("myCafeSearchForm").submit();
+    }
+    $(document).ready(function(){
+        document.getElementById('{{ type }}').setAttribute("class", "is-active");
+        document.getElementById('{{ order }}').classList.add("on");
+    })
+</script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/extends.js' %}"></script>
+{% endblock %}
+</html>

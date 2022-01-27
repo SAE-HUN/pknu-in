@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'vendors/tooltip/tooltipster.main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/tooltip/tooltipster.bundle.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'account/css/join.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div id="header" role="banner">
+        <h1><a href="{% url 'community:index' %}" class="h_logo">비밀번호 찾기</a></h1>
+    </div>
+    <div id="container">
+        <div id="content">
+            <div class="join_content">
+                <form method="POST" id="join_form">
+                    {% csrf_token %}
+                    <div class="row_group">    
+                        <div class="join_row">
+                            <h3 class="join_title"><label for="id">학번</label></h3>
+                            <span>재학생 인증 및 중복 계정 사용 방지를 위하여 학번을 ID로 사용하고 있습니다.</span>
+                            <span class="ps_box int_id">
+                                <input type="text" id="id" name="username" class="int" title="ID" maxlength="20">
+                            </span>
+                            <h3 class="join_title"><label for="pswd1">포털 비밀번호</label></h3>
+                            <span>학교 포털(www.pknu.ac.kr)에서 사용 중인 비밀번호를 입력해주세요. 본인인증으로 사용되며, 서버에 저장되지 않습니다</span>
+                            <span class="ps_box int_pass_step4" id="pswd1Img">
+                                <input type="password" id="pswd1" name="portal_password" class="int" title="포털 비밀번호 입력" maxlength="20">
+                            </span>
+                            <h3 class="join_title"><label for="pswd2">새 비밀번호</label></h3>
+                            <span class="ps_box int_pass_step4" id="pswd1Img">
+                                <input type="password" id="pswd2" name="new_password" class="int" title="비밀번호 입력" maxlength="20">
+                            </span>
+                            <h3 class="join_title"><label for="pswd3">새 비밀번호 재확인</label></h3>
+                            <span class="ps_box int_pass_check" id="pswd2Img">
+                                <input type="password" id="pswd3" name="new_password" class="int" title="비밀번호 재확인 입력" maxlength="20">
+                            </span>
+                        </div>
+                    </div>                        
+                    <div class="btn_area double">
+                        <span><a href="javascript:history.back();" id="btnCancel" class="btn_type btn_default" role="button">취소</a></span>
+                        <span><a href="javascript:void(0);" id="btnAgree" class="btn_type btn_primary" role="button" onclick="submit();">확인</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="footer" role="contentinfo">
+        <ul>
+            <li><a href="">이용약관</a></li>
+            <li><strong><a href="">개인정보처리방침</a></strong></li>
+            <li><a href="">책임의 한계와 법적고지</a></li>
+            <li><a href="" target="_blank">회원정보 고객센터 </a></li>
+        </ul>
+        <address>
+            <span class="all_r">All Rights Reserved.</span>
+        </address>
+    </div>
+</body>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'vendors/tooltip/tooltipster.main.min.js' %}"></script>
+<script src="{% static 'vendors/tooltip/tooltipster.bundle.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $('.tooltip-right').tooltipster({
+        maxWidth: 250,
+        side: ['right']
+    });
+});
+</script>
+<script>
+function submit(){
+    var join_form = document.getElementById('join_form');
+    var strongs = document.querySelectorAll('strong#nicknameMsg')
+    let userAgentString = navigator.userAgent;
+    let IExplorerAgent = userAgentString.indexOf("MSIE") > -1 || userAgentString.indexOf("rv:") > -1;
+    if (IExplorerAgent){
+        for (var i = strongs.length - 1; i >= 0; i--) {
+            strongs[i].innerText = "";
+            strongs[i].outerText = "";
+        }   
+    }
+    else{
+        strongs.forEach(function(currentValue, currentIndex, listObj){
+            currentValue.remove();
+        })
+    }
+    if (validate_all() !== false){
+        if (validate_username() !== false){
+            if (validate_password() !== false){
+                join_form.submit();
+            }
+        }
+    }
+}
+</script>
+<script src="{% static 'account/js/pw_reset.js' %}"></script>
+{% endblock %}
+</html>

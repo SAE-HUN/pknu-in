@@ -1,0 +1,38 @@
+{% load static %}
+<div class="footer_fix">
+    <a href="javascript:history.back();" class="btn_list">
+        <img src="{% static 'images/icon/end_footer_list.svg' %}" alt="" style="vertical-align: -2px;">
+        목록으로
+    </a>
+    <div class="right_area">
+        {% if user.is_authenticated %}
+        <div class="u_likeit_list_module _reactionModule" style="visibility: visible;">
+            {% if is_liked %}
+            <a class="u_likeit_list_btn _button off">
+                <span class="u_ico _icon"><img src="{% static 'images/icon/i_hart_filled.png' %}" width="18" alt=""></span>
+                <em class="u_cnt _count">{{ post.likes.count }}</em>
+            </a>
+            {% else %}
+            <a class="u_likeit_list_btn _button off" onclick="like('{{ post.category }}', '{{ post.id }}')">
+                <span class="u_ico _icon"><img src="{% static 'images/icon/i_hart.png' %}" width="18" alt=""></span>
+                <em class="u_cnt _count">{{ post.likes.count }}</em>
+            </a>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="u_likeit_list_module _reactionModule" style="visibility: visible;">
+            <a href="{% url 'account:login' %}" class="u_likeit_list_btn _button off">
+                <span class="u_ico _icon"><img src="{% static 'images/icon/i_hart.png' %}" width="18" alt=""></span>
+                <em class="u_cnt _count">{{ post.likes.count }}</em>
+            </a>
+        </div>
+        {% endif %}
+        <a href="javascript:void(0)" onclick="fnMove('comment_ul')" class="f_reply _stopDefault">
+            <span class="blind"><img src="{% static 'images/icon/i_comment.png' %}" width="18" alt=""></span>
+            <em>{{ post.comments.count|add:post.recomments.count }}</em>
+        </a>
+        <a href="javascript:void(0)" id="spiButton" onclick="copy_url_to_clipboard()">
+            <span class="blind"><img src="{% static 'images/icon/i_share.png' %}" width="18" alt=""></span>
+        </a>
+    </div>
+</div>

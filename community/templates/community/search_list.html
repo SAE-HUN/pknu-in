@@ -1,0 +1,46 @@
+{% load static %}
+{% for post in posts %}
+<li>
+    <a href="{{ post.get_absolute_url }}">
+        <div class="item ">
+            <div class="tit">
+                <h3>{{ post.title }}</h3>
+            </div>
+            <div class="post_area">
+                {{ post.description }}
+            </div>
+        </div>
+    </a>
+    <div class="aside">
+        <a href="{{ post.get_absolute_url }}">
+            <div class="info">
+                <span class="name">
+                    {% if post.category == 'BMB' or post.category == 'TWK' %}
+                        {% if user.is_staff or user.is_supuruser %}
+                        {{ post.author.nickname }}
+                        {% else %}
+                        익명
+                        {% endif %}
+                    {% else %}
+                    {{ post.author.nickname }}
+                    {% endif %}
+                </span>
+                <span class="time"><em>
+                    {% if post.is_just_now %}
+                    방금 전
+                    {% elif post.is_until_a_hour %}
+                    {{ post.writed_time|timesince}} 전
+                    {% elif post.is_until_today %}
+                    {{ post.writed_time|date:"H:i" }}
+                    {% else %}
+                    {{ post.writed_time|date:"n/j H:i"}}
+                    {% endif %}
+                </em></span>
+                <span class="no">조회 <em>{{ post.views }}</em></span>
+                <span class="no">추천 <em>{{ post.likes.count }}</em></span>
+            </div>
+        </a>
+        <a href="{{ post.get_absolute_url }}" class="cmt_num"><span class="blind"><img src="{% static 'images/icon/i_comment.png' %}" width="14" alt=""> </span>{{ post.comments.count }}</a>
+    </div>
+</li>
+{% endfor %}

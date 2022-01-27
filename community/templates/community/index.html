@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'community/css/index.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body>
+    <header id="hd" class="header section hidden">
+        <div class="gnb" role="banner">       
+            <div class="gnb_l"></div>    
+            <h1 style="text-align: center;">
+                <a href="{% url 'community:index' %}" id="cafeInfo"><img src="{% static 'images/logo_white.png' %}" alt=""></a>
+            </h1>             
+            <div class="gnb_sc">
+                <a href="{% url 'community:_search' %}" class="gnb_search" role="button"></a>
+            </div>
+            <div class="gnb_r">
+                <a href="#profile-info-menu" class="gnb_ham _stopDefault" data-uc-click="slipout"></a>
+            </div>
+        </div>
+    </header>
+    <div class="location-bar">
+        <div class="inner">
+            <div class="inner-box">
+                <ul class="tap-area">
+                    <li>
+                        {% if category == '' %}
+                        <a href="{% url 'community:index' %}" class="is-active"><span>전체글</span></a>
+                        {% else %}
+                        <a href="{% url 'community:index' %}"><span>전체글</span></a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        <a href="{% url 'community:popular' %}">인기글</a>
+                    </li>
+                    <li>
+                        {% if category == 'NTC' %}
+                        <a href="{% url 'community:notice' %}" class="is-active"><span>공지사항</span></a>
+                        {% else %}
+                        <a href="{% url 'community:notice' %}"><span>공지사항</span></a>
+                        {% endif %}
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <div class="btns-area">
+                    <a href="{% url 'community:write_post' %}" class="icon-write">
+                        <button type="button" class="btn-write">
+                            <img src="{% static 'images/icon/i_write.png' %}" width="22" alt=""></button>
+                    </a>
+                </div>
+                {% else %}
+                <a href="{% url 'account:login' %}" class="btn_join">로그인</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="list-board-section">
+            <div class="article-list-area">
+                {% include 'community/post_list.html' %}
+                {% include 'community/pagination.html' %}
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+    <!-- 메뉴 -->
+    {% include 'community/menu.html' %}
+
+</body>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/extends.js' %}"></script>
+<script>
+    function fnMove(seq){
+        var offset = $("#" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+
+    function more(category, page) {
+        $.ajax({
+            url: "/more/" + page,
+            type: "GET",
+            dataType: "json",
+            data: {category:category},
+            success: function(response){
+                if(history.state){
+                    var stateObj = {
+                        posts: history.state["posts"] + response.posts
+                    };
+                }
+                else{
+                    var stateObj = {
+                        posts: response.posts
+                    };
+                }
+                stateObj['pagination'] = response.pagination;
+                history.pushState(stateObj, "posts", "");
+                $("#btnNextList").remove(); //더보기 버튼 삭제
+                $('.article-list-area').append(response.posts); //글목록 + 더보기 버튼 추가
+                $('.article-list-area').append(response.pagination);
+            }
+        })
+    }
+    $(document).ready(function(){
+        if (performance.navigation.type ==! 2 || performance.navigation.type === 1){
+            history.replaceState(null, "", "");
+        }
+        if (performance.navigation.type == 2){
+            if(history.state){
+                $("#btnNextList").remove();
+                $('.article-list-area').append(history.state['posts']);
+                $('.article-list-area').append(history.state['pagination']);
+            }
+        }
+    })
+
+    $(window).scroll(function(){
+        let nScrollTop = $(window).scrollTop();
+        if(nScrollTop >= 152) {
+            $('#hd').removeClass('hidden');  
+            $('.header-gate').addClass('hidden');
+            $('.location-bar').find('.inner').addClass('fix');    
+        } else {
+            $('#hd').addClass('hidden');
+            $('.header-gate').removeClass('hidden');
+            $('.location-bar').find('.inner').removeClass('fix');    
+        }
+    });
+</script>
+{% endblock %}
+</html>

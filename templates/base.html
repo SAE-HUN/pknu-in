@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>부경in</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/icon/tail_logo.png' %}">
+    
+    <link rel="stylesheet" href="{% static 'vendors/fonts/line-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    
+    {% block css %}
+    {% endblock %}
+
+    {% block head_script %}
+    {% endblock %}
+	
+</head>
+{% block body %}
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+</html>

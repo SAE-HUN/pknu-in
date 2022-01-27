@@ -1,0 +1,109 @@
+{% load static %}
+<div class="list_board_section lst_section_profile my_profile tab-contents">
+	<div id="tab-1" class="tab-pane is-show is-active">
+		<div class="txt_result">
+			<span class="tx" id="itemCount">{{ user.profile.posts.count }}개의 글이 있습니다.</span>
+		</div>
+		<ul class="list_area">
+			{% for post in user.profile.posts.all %}
+			{% if post.blind or post.deleted %}
+			<li class="board_box">
+				<a href="javascript:void(0)" class="txt_area _articleListItem">
+					<strong class="tit">(삭제된 글)</strong>
+				</a>
+			</li>
+			{% else %}
+			<li class="board_box">
+				<a href="{{ post.get_absolute_url }}" class="txt_area _articleListItem">
+					<strong class="tit">{{ post.title }}</strong>
+					<div class="user_area">
+						<span class="nick"><span class="ellip">{{ post.author.nickname }}</span></span>
+						<span class="time">{{ post.writed_time }}</span>
+						<span class="no"><img src="{% static 'images/icon/i_view.png' %}" width="15" alt=""> {{ post.views }}</span>
+						<span class="no"><i class="la la-thumbs-up"></i> {{ post.likes.count }}</span>
+					</div>
+				</a>
+				<a href="{{ post.get_absolute_url }}" class="link_comment">
+					<em class="num">{{ post.comments.count|add:post.recomments.count }}</em>
+					<div class="tit">댓글</div>
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div id="tab-3" class="tab-pane">
+		<div class="txt_result">
+			<span class="tx" id="itemCount">{{ user.profile.comments.count }}개의 글이 있습니다.</span>
+		</div>
+		<ul class="list_area list_cmt">
+			{% for comment in user.profile.comments.all reversed %}
+			{% if comment.blind or comment.deleted %}
+			<li class="board_box">
+				<a href="javascript:void(0);" class="txt_area link_item">
+					<p class="cont_item">
+						<strong class="tit">(삭제된 댓글)</strong>
+					</p>
+				</a>
+			</li>
+			{% elif comment.post.blind or comment.post.deleted %}
+			<li class="board_box">
+				<a href="javascript:void(0);" class="txt_area link_item">
+					<p class="cont_item">
+						<strong class="tit">{{ comment.content }}</strong>
+						<span class="info_item">{{ comment.writed_time }}
+							<span class="desc">(삭제된 글)</span>
+						</span>
+					</p>
+				</a>
+			</li>
+			{% else %}
+			<li class="board_box">
+				<a href="{{ comment.post.get_absolute_url }}" class="txt_area link_item">
+					<p class="cont_item">
+						<strong class="tit">{{ comment.content }}</strong>
+						<span class="info_item">{{ comment.writed_time }}
+							<span class="desc">{{ comment.post.title }}
+								<span class="num">({{ comment.post.comments.count|add:comment.post.recomments.count }})</span>
+							</span>
+						</span>
+					</p>
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div id="tab-4" class="tab-pane">
+		<div class="txt_result">
+			<span class="tx" id="itemCount">{{ user.profile.likes.count }}개의 글이 있습니다.</span>
+		</div>
+		<ul class="list_area">
+			{% for like in user.profile.likes.all %}
+			{% if like.post.blind or like.post.deleted %}
+			<li class="board_box">
+				<a href="javascript:void(0);" class="txt_area _articleListItem">
+					<strong class="tit">(삭제된 글)</strong>
+				</a>
+			</li>
+			{% else %}
+			<li class="board_box">
+				<a href="{{ like.post.get_absolute_url }}" class="txt_area _articleListItem">
+					<strong class="tit">{{ like.post.title }}</strong>
+					<div class="user_area">
+						<span class="nick"><span class="ellip">{{ like.post.author }}</span></span>
+						<span class="time">{{ like.post.writed_time }}</span>
+						<span class="no"><img src="{% static 'images/icon/i_view.png' %}" width="15" alt=""> {{ like.post.views }}</span>
+						<span class="no"><i class="la la-thumbs-up"></i> {{ like.post.likes.count }}</span>
+					</div>
+				</a>
+				<a href="{{ like.post.get_absolute_url }}" class="link_comment">
+					<em class="num">{{ like.post.comments.count|add:like.post.recomments.count }}</em>
+					<div class="tit">댓글</div>
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>

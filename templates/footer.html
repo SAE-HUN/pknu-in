@@ -1,0 +1,17 @@
+<footer class="footer " role="contentinfo">
+    <div class="footer_inner">
+        <div class="page_top">
+            <a href="javascript:void(0)" class="btn_top _stopDefault" role="button" onclick="fnMove('body_wrapper')">맨위로</a>
+        </div>    
+        <div class="footer_snb">
+            {% if user.is_authenticated %}
+            <a href="{% url 'account:logout' %}" class="_stopDefault">로그아웃</a>
+            {% else %}
+            <a href="{% url 'account:login' %}" class="_stopDefault">로그인</a>
+            {% endif %}
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+        </div>
+        <address class="copyright">©<a href="#">PKNUIN</a></address>
+    </div>
+</footer>

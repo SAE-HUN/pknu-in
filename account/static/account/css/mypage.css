@@ -1,0 +1,394 @@
+em {
+    font-style: normal;
+}
+button {
+    background: transparent;
+    border: 0;
+}
+img {
+    vertical-align: top;
+}
+.ellip {
+    display: -webkit-box;
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.icon-new-txt {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: -7px;
+    font-size: 14px;
+    line-height: 0;
+    color: #f97575;
+}
+
+.header.fix {
+    height: 48px;
+}
+.profile_bar {
+    z-index: 100;
+    width: 100%;
+    height: 48px;
+    background-color: #2080b9;
+}
+.profile_bar .link_prev {
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    max-width: 70%;
+    padding: 15px 15px 14px;
+    margin-right: 60px;
+    color: #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.profile_bar .txt_prev {
+    font-size: 16px;
+    line-height: 19px;
+    color: #fff;
+}
+.profile_bar .link_menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px 13px 14px;
+}
+.profile_bar .ico_menu {
+    display: inline-block;
+    margin-top: 7px;
+}
+
+.wrap_profile .profile_head {
+    background-color: #2080b9;
+}
+.profile_head .my_area {
+    overflow: hidden;
+    min-height: 103px;
+    padding: 14px 15px 18px;
+}
+.profile_head .thumb_profile {
+    width: 90px;
+    height: 90px;
+    float: right;
+    position: relative;
+    margin-top: 5px;
+    border-radius: 70%;
+    overflow: hidden;
+}
+.profile_head .thumb_profile .thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile_head .info_profile {
+    display: table;
+    overflow: hidden;
+    float: none;
+    width: auto;
+    min-height: 99px;
+}
+.profile_head .info_profile .inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+.profile_head .nick {
+    float: left;
+    font-size: 25px;
+    line-height: 30px;
+    color: #fff;
+    word-break: break-all;
+}
+.profile_head .id {
+    display: block;
+    padding-top: 1px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #fff;
+    clear: both;
+}
+.profile_head .id .txt {
+    float: left;
+    width: 16px;
+    height: 14px;
+    margin: 2px 3px 0 0;
+    border: 1px solid rgba(255,255,255,0.4);
+    font-size: 10px;
+    line-height: 11px;
+    text-align: center;
+    opacity: .7;
+}
+.profile_head .desc {
+    padding-top: 7px;
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+    opacity: .7;
+    clear: both;
+}
+.profile_head .desc .txt_bar:before {
+    display: inline-block;
+    margin: 7px 5px 0;
+    width: 2px;
+    height: 2px;
+    background-color: #fff;
+    opacity: .5;
+    vertical-align: top;
+    content: '';
+}
+.profile_head .info {
+    overflow: hidden;
+    padding-top: 16px;
+    font-size: 15px;
+    line-height: 18px;
+    clear: both;
+}
+.profile_head .info .btn_go {
+    float: left;
+    width: 90px;
+    height: 27px;
+    margin-right: 6px;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    line-height: 27px;
+}
+.profile_head .info .btn_go {
+    float: left;
+    width: 90px;
+    height: 27px;
+    margin-right: 6px;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    line-height: 27px;
+}
+
+.wrap_profile .profile_tab {
+    padding-bottom: 7px;
+    background-color: #ededed;
+    clear: both;
+}
+.wrap_profile .profile_tab .inner_tab {
+    width: 100%;
+    border-bottom: 1px solid #dedede;
+    background-color: #fff;
+}
+.wrap_profile .profile_tab .list_tab {
+    display: table;
+    width: 100%;
+}
+.wrap_profile .profile_tab .list_tab li {
+    display: table-cell;
+}
+.wrap_profile .profile_tab .link_tab {
+    display: block;
+    position: relative;
+    padding: 12px 0;
+    font-size: 14px;
+    line-height: 18px;
+    color: #a3a3a3;
+    text-align: center;
+}
+.wrap_profile .profile_tab .is-active .link_tab {
+    color: #2080b9;
+}
+.wrap_profile .profile_tab .link_tab .inner {
+    display: block;
+    width: 80px;
+    margin: 0 auto;
+}
+.wrap_profile .profile_tab .is-active .link_tab:after {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #2080b9;
+    content: '';
+}
+
+.lst_section_profile .txt_result {
+    position: relative;
+    display: block;
+    margin-left: 15px;
+    padding: 17px 130px 17px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #222;
+    background-color: #fff;
+}
+.list_board_section .list_area {
+    margin: 0 auto;
+    padding: 0 0 0 15px;
+}
+.list_board_section .list_area li.board_box {
+    display: table;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.list_board_section .list_area li.board_box .txt_area {
+    display: table-cell;
+    width: 100%;
+    padding: 12px 14px 13px 0;
+}
+.list_board_section .list_area li.board_box .txt_area .tit {
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: normal;
+}
+.list_board_section .list_area li.board_box .txt_area .user_area {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #959595;
+}
+.list_board_section .list_area li.board_box .txt_area .user_area .nick {
+    display: table-cell;
+}
+.list_board_section .list_area li.board_box .txt_area .user_area .ellip {
+    line-height: 1.3;
+}
+.list_board_section .list_area li.board_box .txt_area .user_area .time {
+    display: table-cell;
+    padding-left: 7px;
+    white-space: nowrap;
+}
+.list_board_section .list_area li.board_box .txt_area .user_area .no {
+    display: table-cell;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.list_board_section .list_area li.board_box .txt_area .user_area .no>img {
+    vertical-align: middle;
+}
+.list_board_section .list_area li.board_box .link_comment {
+    display: table-cell;
+    min-width: 50px;
+    background-color: #fafafa;
+    text-align: center;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.list_board_section .list_area li.board_box .link_comment .num {
+    display: block;
+    margin-top: 10px;
+    font-size: 17px;
+    color: #444;
+}
+.list_board_section .list_area li.board_box .link_comment .tit {
+    display: inline-block;
+    position: relative;
+    margin-top: 3px;
+    font-size: 10px;
+    color: #888;
+}
+.list_board_section .icon_new_txt {
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    left: -9px;
+    font-size: 17px;
+    line-height: 0;
+    color: #f97575;
+}
+.list_board_section .list_area li.board_box .link_comment .tit .icon_new_txt {
+    font-size: 14px;
+    top: 5px;
+    left: -7px;
+}
+
+.list_area.list_cmt li {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    word-break: break-all;
+}
+.list_area.list_cmt .link_item {
+    display: table-cell;
+    overflow: hidden;
+    padding: 12px 0 15px;
+}
+.list_area.list_cmt .cont_item {
+    overflow: hidden;
+    float: none;
+    width: auto;
+    padding-right: 10px;
+}
+.list_area .txt {
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 20px;
+    color: #000;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.list_area.list_cmt .info_item {
+    display: block;
+    padding-top: 4px;
+    line-height: 14px;
+    font-size: 12px;
+    color: #999;
+    clear: both;
+}
+.list_cmt .info_item .desc, .list_area.list_cmt .info_item .desc {
+    display: block;
+    padding-top: 8px;
+    font-size: 13px;
+    line-height: 16px;
+    color: #666;
+}
+.list_cmt .info_item .desc .num {
+    font-size: 12px;
+    color: #bdbdbd;
+}
+.list_board_section .tab-pane {
+    display: none;
+}
+.list_board_section .tab-pane.is-show {
+    display: block;
+}
+
+.wrap_empt {
+    display: table;
+    width: 100%;
+    background-color: #fff;
+}
+.wrap_empt .inner {
+    display: block;
+    width: 100%;
+    padding: 140px 0 100px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #666;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media (min-width: 768px){
+    .profile_head .my_area,
+    .lst_section_profile .txt_result,
+    .header_tab .list_tab, .wrap_profile .profile_tab .list_tab {
+        width: 65.2%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .list_board_section .list_area {
+        width: 65.1%;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

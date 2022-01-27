@@ -1,0 +1,11 @@
+<script>
+	{% if result %}
+		{% if message %}
+			alert('{{ message|safe }}')
+		{% endif %}
+		location.replace('{{ url|safe }}')
+	{% else %}
+		alert('{{ message|striptags }}')
+		history.go(-1);
+	{% endif %}
+</script>

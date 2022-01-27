@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'account/css/profile_setting.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body>
+    <header class="header" id="hd">
+        <div class="hd_cafe_v2">
+            <div class="cafe_name">
+                <h1 class="h_tit ellip">프로필 설정</h1>
+            </div>
+            <div class="btns">
+                <div class="btns_left">
+                    <a href="javascript:history.back()" class="btn btn_close _stopDefault">
+                        <i class="la la-close"></i></a>
+                </div>
+                <div class="btns_right">
+                    <a href="javascript:void(0);" onclick="set_formData();" class="btn btn_confirm _stopDefault"><span>완료</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="ct" class="wrap_profile_set">
+        <form id="modifyForm" action="{% url 'account:set-profile' %}" method="POST" multipart/form-data>
+            {% csrf_token %}
+            <fieldset>
+                <div class="info_set">
+                    <strong class="tit">프로필 이미지</strong>
+                    <p class="txt">설정하신 이미지는 imgur에 업로드됩니다.</p>
+                </div>
+                <ul class="list_profile_type">
+                    <li>
+                        <a href="javascript:void(0);" class="link_thumb ">
+                            <input id="imageUploadBtn" type="file" onchange="readURL(this)" accept="image/*" class="inp_file">
+                            <img id="cafeMemberProfileThumb"
+                                src="{{ user.profile.profile_image }}" width="50"
+                                alt="">
+                        </a>
+                        <label for="cafeMemberProfileChk" class="lab_chk">
+                            <div class="inner">
+                                <span class="txt">프로필 변경하기</span>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+                <div class="info_set">
+                    <strong class="tit">별명</strong>
+                    <p class="txt">최소 2자 최대 10자 가능</p>
+                </div>
+                <div class="box_nick">
+                    <input name="nickname" id="nickname" type="text" class="inp_nick" value="{{ user.profile.nickname }}">
+                    <button type="button" class="ico_cafe btn_del"></button>
+                </div>
+            </fieldset>
+        </form>
+        <div class="box_btns">
+            <button type="button" onclick="validate_nickname();" class="btn_submit _stopDefault">완료</button>
+        </div>
+    </div>
+</body>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'account/js/profile_setting.js' %}"></script>
+<script>
+function validate_nickname(){
+    var nickname = document.getElementById('nickname')
+    var strongs = document.querySelectorAll('strong#nicknameMsg')
+    let userAgentString = navigator.userAgent;
+    let IExplorerAgent = userAgentString.indexOf("MSIE") > -1 || userAgentString.indexOf("rv:") > -1;
+    if (IExplorerAgent){
+        for (var i = strongs.length - 1; i >= 0; i--) {
+            strongs[i].innerText = "";
+            strongs[i].outerText = "";
+        }   
+    }
+    else{
+        strongs.forEach(function(currentValue, currentIndex, listObj){
+            currentValue.remove();
+        })
+    }
+    if (nickname.value.length <2 || nickname.value.length >10){
+        var newNode = make_newNode('닉네임은 최소 2글자 이상 10글자 이하여야 합니다.')
+        nickname.parentNode.parentNode.insertBefore(newNode, nickname.parentNode.nextElementSibling)
+        return false
+    }
+    else{
+        if (nickname.value !== '{{ user.profile.nickname }}'){
+            $.ajax({
+                url: '/account/validate_nickname',
+                type: "GET",
+                dataType: "json",
+                data: {
+                    nickname: nickname.value
+                },
+                success: function(response){
+                    if (response.result === true){
+                        set_formData();
+                    }
+                    else{
+                        var newNode = make_newNode('이미 사용 중인 닉네임입니다.')
+                        nickname.parentNode.parentNode.insertBefore(newNode, nickname.parentNode.nextElementSibling)
+                        return false
+                    }
+                }
+            })
+        }
+        else{
+            set_formData();
+        }
+    }
+    
+}
+</script>
+<script>
+function submit(formData){
+    $.ajax({
+        url: "{% url 'account:set-profile' %}",
+        headers: { "X-CSRFToken": getCookie('csrftoken') },
+        enctype: 'multipart/form-data',
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: false,
+        success: function(response){
+            if(response.result===true){
+                window.location.replace(response.url)
+            }
+            else{
+                alert(response.message);
+            }
+        },
+         error: function(response){
+            console.log(response.responseText);
+         }
+    })
+}
+</script>
+{% endblock %}
+</html>

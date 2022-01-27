@@ -1,0 +1,68 @@
+{% load static %}
+<ul class="list-area">
+    {% for post in posts %}
+    <li>
+        <a href="{{ post.get_absolute_url }}" class="item">
+            <strong class="title">
+                <span style="font-size: 10px; margin-right: 5px">
+                {% if category == '' %}
+                    {% if post.category == 'FRE' %}
+                    <span style="color: #2080b9;">자유</span>
+                    {% elif post.category == 'BMB' %}
+                    <span style="color: #3CB371;">대숲</span>
+                    {% elif post.category == 'TWK' %}
+                    <span style="color: #FFC0CB;">반짝</span>
+                    {% elif post.category == 'LAF' %}
+                    <span>분실</span>
+                    {% elif post.category == 'NTC' %}
+                    <span>공지</span>
+                    {% endif %}
+                {% endif %}
+                </span>
+                {{ post.title }}
+            </strong>
+            <div class="user-area">
+                <span class="nick">
+                    <span class="ellip">
+                        {% if post.category == 'BMB' or post.category == 'TWK' %}
+                            {% if user.is_staff or user.is_supuruser %}
+                            {{ post.author.nickname }}
+                            {% else %}
+                            익명
+                            {% endif %}
+                        {% else %}
+                        {{ post.author.nickname }}
+                        {% endif %}
+                    </span>
+                </span>
+                <span class="time">
+                {% if post.is_just_now %}
+                방금 전
+                {% elif post.is_until_a_hour %}
+                {{ post.writed_time|timesince}} 전
+                {% elif post.is_until_today %}
+                {{ post.writed_time|date:"H:i" }}
+                {% else %}
+                {{ post.writed_time|date:"n/j H:i"}}
+                {% endif %}
+                </span>
+                <span class="no"><img src="{% static 'images/icon/i_view.png' %}" width="15" alt=""> {{ post.views }}</span>
+                <span class="no"><i class="la la-thumbs-up"></i> {{ post.likes.count }}</span>
+            </div>
+        </a>
+        {% if post.images.exists %}
+        <a href="{{ post.get_absolute_url }}" class="thumb_area">
+            <div class="thumb">
+            {% with post.images.all|first as image %}
+                <img src="{{ image.src }}">
+            {% endwith %}
+            </div>
+        </a>
+        {% endif %}
+        <a href="{{ post.get_absolute_url }}" class="link-comment">
+            <em class="num">{{ post.comments.count|add:post.recomments.count }}</em>
+            <div class="tit">댓글</div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>

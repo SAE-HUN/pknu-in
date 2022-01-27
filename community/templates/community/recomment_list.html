@@ -1,0 +1,70 @@
+{% load static %}
+<ul class="recomment_ul">
+	{% for recomment in comment.recomments.all %}
+	{% if recomment.blind == False and recomment.deleted == False %}
+	<li class="comment re">
+		<div class="lst_wp">
+			<div class="thumb_area">
+				<a href="javascript:void(0)" class="nick _stopDefault">
+					{% if comment.post.category == 'BMB' or comment.post.category == 'TWK' %}
+					<span class="thumb"><img src="{% static 'images/cafe_profile_77.png' %}" width="34" height="34"></span>
+						{% if recomment.writer == comment.post.author %}
+						<span class="name ellip">익명(글쓴이)</span>
+						{% else %}
+						<span class="name ellip">익명</span>
+						{% endif %}
+					{% else %}
+					<span class="thumb"><img src="{{ recomment.writer.profile_image }}"></span>
+					<span class="name ellip">{{ recomment.writer.nickname }}</span>
+					{% endif %}
+				</a>
+				<span class="u_cbox_ico_new"></span>
+				<div class="aside_layer uc-dropdown-menu" data-uc-dropdown="click">
+					<a href="javascript:void(0)" class="btn_aside _stopDefault is-dropdown-toggle" role="button">
+						<span class="more">본문 기타 기능</span>
+					</a>
+					<div id="optionLayer" class="layer is-dropdown-wrapper is-nav-dropdown" style="width: 130px;box-shadow: none;">
+						<ul>
+							{% if recomment.writer == user.profile %}
+							<li><a href="{% url 'community:delete_recomment' recomment.id %}" onclick="delete_recomment(event, this, '{{comment.id}}')" class="btn" style="padding: 0;">삭제</a></li>
+							{% endif %}
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'community:report_recomment' recomment.id %}" class="btn" style="padding: 0;">신고</a></li>
+							{% else %}
+							<li><a href="{% url 'account:login' %}" class="btn" style="padding: 0;">신고</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<p class="txt">{{ recomment.content|linebreaksbr }}</p>
+			<div class="date_area">
+				<span class="date">
+				{% if recomment.is_just_now %}
+				방금 전
+				{% elif recomment.is_until_a_hour %}
+				{{ recomment.writed_time|timesince}} 전
+				{% elif recomment.is_until_today %}
+				{{ recomment.writed_time|date:"H:i"}}
+				{% else %}
+				{{ recomment.writed_time|date:"n/j H:i" }}
+				{% endif %}
+				</span>
+			</div>
+		</div>
+	</li>
+	{% else %}
+	<li class="comment re">
+		<div class="lst_wp">
+			<div class="thumb_area">
+				<a href="javascript:void(0)" class="nick _stopDefault">
+					<span class="thumb"><img src="{% static 'images/cafe_profile_77.png' %}" width="34" height="34"></span>
+					<span class="name ellip">(삭제)</span>
+				</a>
+			</div>
+			<p class="txt">(삭제된 답글입니다.)</p>
+		</div>
+	</li>
+	{% endif %}
+	{% endfor %}
+</ul>

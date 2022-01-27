@@ -1,0 +1,140 @@
+<div id="profile-info-menu" data-uc-slipout class="is-fade" data-placement="right">
+    <div class="is-slipout-dialog side_menu">
+        <header id="sideMenuHeader">
+            <div class="header_inner">
+                {% if user.is_authenticated %}             
+                <div class="myinfo">
+                    <div class="login_after" style="display: block">
+                        <a href="{% url 'account:mypage' %}" class="thmb">
+                            <img src="{{ user.profile.profile_image }}" alt="">
+                        </a>
+                        <div class="myinfo_text">
+                            <a href="{% url 'account:mypage' %}" class="nick">
+                                <span class="ellip">{{ user.profile.nickname }}</span>
+                            </a>
+                            <span class="grade"><span class="ellip">{{ user.username|make_list|slice:"2:4"|join:"" }}학번</span></span>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="close _stopDefault" data-uc-dismiss="slipout" aria-label="사이드 메뉴 닫기"
+                        role="button"></a>
+                </div>
+                {% else %}
+                <div class="myinfo">
+                    <div class="login_after" style="display: block">            
+                        <a href="{% url 'account:login' %}" class="thmb">
+                            <img src="https://ssl.pstatic.net/static/m/cafe/mobile/cafe_profile_80.png" alt=""
+                                width="40" height="40">
+                        </a>
+                        <a href="{% url 'account:login' %}" class="nick join _stopDefault"><span class="ellip">로그인 해주세요.</span></a>
+                    </div>
+                    <a href="#" class="close _stopDefault" data-uc-dismiss="slipout" aria-label="사이드 메뉴 닫기" role="button"></a>
+                </div> 
+                {% endif %}
+                <ul class="btn_list">
+                    <li class="btn_cafe">
+                        <a href="{% url 'account:mypage' %}"><span class="tx">내정보</span></a> </li>
+                    <li class="btn_write">
+                        <a href="{% url 'community:write_post' %}" class=" _stopDefault"><span class="tx">글쓰기</span></a></li>
+                </ul>
+                <h3 class="list_tit_all">
+                    <a href="{% url 'community:index' %}">전체글보기</a></h3>
+                <h3 class="list_tit_all">
+                    <a href="{% url 'community:notice' %}">공지사항</a></h3>
+                <h3 class="list_tit_all">
+                    <a href="{% url 'community:popular' %}">인기글</a></h3>
+            </div>
+        </header>
+        <div id="sideMenuScrollContainer" class="scroll_h" style="height: 488px; overflow: hidden;">
+            <div
+                style="transition-property: transform; transform-origin: 0px 0px; transform: translate(0px, 0px) scale(1) translateZ(0px);">
+                <div class="list_section">
+
+                    <div id="allMenuListContainer" data-uc-dropdown="click" class="uc-dropdown-menu menu_area">
+                        <h3 class="list_tit is-dropdown-toggle"><a href="{% url 'community:index' %}" class=" _stopDefault">전체 게시판</a></h3>
+                        <ul id="allMenuList" class="list is-dropdown-wrapper is-nav-dropdown"
+                            style="display: none;">
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="{% url 'community:board' 'FRE' %}" class="tit">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">자유게시판</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="{% url 'community:board' 'BMB' %}" class="tit">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">대나무숲</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="{% url 'community:board' 'TWK' %}" class="tit">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">반짝정원</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="{% url 'community:board' 'LAF' %}" class="tit">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">분실물</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="allMenuListContainer" data-uc-dropdown="click" class="uc-dropdown-menu menu_area">
+                        <h3 class="list_tit is-dropdown-toggle"><a href="{% url 'community:index' %}" class=" _stopDefault">관련 사이트</a></h3>
+                        <ul id="allMenuList" class="list is-dropdown-wrapper is-nav-dropdown"
+                            style="display: none;">
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="https://www.facebook.com/PKNUBamboo" class="tit" target="_blank">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">대나무숲</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="https://www.facebook.com/PKNUTwinkle" class="tit" target="_blank">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">반짝정원</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu_text _menuArea">
+                                    <a href="http://www.pknu.ac.kr" class="tit" target="_blank">
+                                        <span class="tit_board">
+                                            <span class="tit_text board_txt_name_">학교 홈페이지</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <footer id="sideMenuFooter">
+                    <div class="page_top">
+                        <a href="javascript:void(0)" class="ico ico_top _click(CafeMenuList|ScrollOnTop) _stopDefault"
+                            aria-label="맨위로 이동" role="button" onclick="nclk(this, 'cfb.top', '', '')"></a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+    </div>
+</div>

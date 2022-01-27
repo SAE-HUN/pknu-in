@@ -1,0 +1,374 @@
+.header.fix {
+    height: 48px;
+}
+.gnb {
+    position: fixed !important;
+    top: 0;
+    background-color: #fff;    
+    display: table;
+    table-layout: fixed;
+    position: relative;
+    width: 100%;
+    height: 46px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    z-index: 25;
+}
+.header.hidden .gnb {
+    height: 200px;
+}
+.gnb h1 {
+    display: table-cell;
+    max-width: 100%;
+    vertical-align: top;
+}
+.header.hidden .gnb h1 {
+    vertical-align: middle;
+}
+.gnb h1 a {
+    display: block;
+    color: #000;
+}
+.gnb h1 span {
+    display: -webkit-box;
+    margin-top: 10px;
+    font-size: 17px;
+    text-align: center;
+    transition: color .1s ease;
+    -webkit-transition: color .1s ease;
+    color: #000;
+    font-weight: normal;
+}
+.gnb .gnb_sc {
+    display: table-cell;
+    width: 32px;
+    text-align: center;
+    vertical-align: top;
+}
+.gnb .gnb_r {
+    display: table-cell;
+    text-align: right;
+    width: 40px;
+    padding-right: 4px;
+    vertical-align: top;
+}
+.gnb .gnb_l {
+    display: table-cell;
+    width: 78px;
+    padding-right: 6px;
+    vertical-align: top;
+}
+.gnb a.gnb_search {
+    display: block;
+    width: 19px;
+    height: 32px;
+    padding: 14px 7px 0;
+    vertical-align: top;
+}
+.gnb a.gnb_search:after {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: top;
+    background-image: url(https://ssl.pstatic.net/static/m/cafe/mobile/sprites/w_cafe/gnb_icon_search.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.gnb a.gnb_ham {
+    position: relative;
+    display: block;
+    height: 31px;
+    padding: 15px 14px 0 0;
+}
+.gnb a.gnb_ham:after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    background-image: url(https://ssl.pstatic.net/static/m/cafe/mobile/sprites/w_cafe/gnb_icon_ham.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    clear: both;
+    width: 100%;
+    padding-top: 48px;
+    background-color: #fff;
+}
+
+.location-bar .inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 25;
+}
+.location-bar .inner.fix {
+    position: fixed;
+    top: 51px;
+}
+.location-bar .inner-box {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #c2c2c2;
+}
+.location-bar .tap-area {
+    display: table-cell;
+    width: 100%;
+    padding-left: 15px;
+    vertical-align: top;
+}
+.location-bar .tap-area li {
+    display: table-cell;
+    white-space: nowrap;
+    vertical-align: top;
+}
+.location-bar .tap-area li .icon-new-txt {
+    left: inherit;
+    right: -8px;
+    top: 17px;
+}
+.location-bar .tap-area li a {
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    max-width: 140px;
+    height: 47px;
+    margin-left: 18px;
+    padding-top: 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 23px;
+    font-size: 16px;
+    color: #333;
+    vertical-align: top;
+}
+.location-bar .tap-area li a.is-active {
+    color: #000;
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+}
+.location-bar .tap-area li:first-of-type a {
+    margin: 0;
+}
+.location-bar .btns-area {
+    display: table-cell;
+    white-space: nowrap;
+}
+.location-bar button {
+    display: inline-block;
+    width: 49px;
+    height: 47px;
+    vertical-align: top;
+}
+.location-bar button.btn-write {
+    padding-top: 3px;
+}
+.location-bar .btn_join {
+    display: inline-block;
+    width: 75px;
+    height: 33px;
+    margin: 7px 10px 0 0;
+    background-color: #2080b9;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    line-height: 33px;
+    vertical-align: top;
+}
+
+.article-list-area .notice {
+    overflow: hidden;
+    position: relative;
+    background-color: #fff1f1;
+    color: #555;
+    line-height: 19px;
+}
+.article-list-area .notice .inner {
+    display: block;
+    min-height: 49px;
+    padding: 15px 15px 13px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 16px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #bd2a2a;
+}
+.article-list-area .notice .must_read {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.article-list-area .notice .noti {
+    margin-right: 5px;
+    color: #bd2a2a;
+}
+
+
+.article-list-area .list-area {
+    margin: 0 auto;
+    padding: 0 0 0 15px;
+}
+.article-list-area .list-area li {
+    display: table;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.article-list-area .list-area li .item {
+    display: table-cell;
+    position: relative;
+    width: 100%;
+    padding: 12px 14px 13px 0;
+}
+
+.article-list-area .list-area li .icon-new-txt {
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    left: -9px;
+    font-size: 17px;
+    line-height: 0;
+    color: #f97575;
+}
+.article-list-area .list-area li strong {
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: normal;
+}
+.article-list-area .list-area .user-area {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #959595;
+}
+.article-list-area .list-area li .nick {
+    display: table-cell;
+}
+.article-list-area .list-area li .ellip {
+    line-height: 1.3;
+}
+.article-list-area .list-area li .time {
+    display: table-cell;
+    padding-left: 7px;
+    white-space: nowrap;
+}
+.article-list-area .list-area li .no {
+    display: table-cell;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.article-list-area .list-area li .no>img {
+    vertical-align: middle;
+}
+.article-list-area .list-area li .no>i {
+    font-size: .85rem;
+    vertical-align: middle;
+}
+.article-list-area .list-area li .link-comment {
+    display: table-cell;
+    min-width: 50px;
+    background-color: #fafafa;
+    text-align: center;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.article-list-area .list-area li .thumb_area {
+    display: table-cell;
+    max-width: 64px;
+    max-height: 69px;
+    padding-right: 9px;
+    vertical-align: top;
+}
+.article-list-area .list-area li .thumb_area .thumb {
+    display: block;
+    position: relative;
+    min-height: 55px;
+    min-width: 55px;
+    max-width: 55px;
+    max-height: 55px;
+    margin: 8px 0;
+    text-align: center;
+}
+.article-list-area .list-area li .thumb_area .thumb img{
+    width: 55px;
+    height: 55px;
+}
+.article-list-area .list-area li .thumb_area .thumb:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    border: solid 1px rgba(0,0,0,0.11);
+}
+.article-list-area .list-area li .num {
+    display: block;
+    margin-top: 16px;
+    font-size: 17px;
+    color: #444;
+}
+.article-list-area .list-area li .tit {
+    display: inline-block;
+    position: relative;
+    margin-top: 3px;
+    font-size: 10px;
+    color: #888;
+}
+.u_cbox_paginate_ico {
+    height: 46px;
+    margin: 15px 15px 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #e1e4e7;
+}
+.lst_section .u_cbox_paginate_ico, .list_board_section .u_cbox_paginate_ico {
+    margin-bottom: 42px;
+}
+.u_cbox_btn_more {
+    display: block;
+    position: relative;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+}
+.u_cbox_more_wrap {
+    display: inline-block;
+    padding: 13px 0;
+}
+.u_cbox_paginate_ico .u_cbox_page_more {
+    font-size: 14px;
+    color: #666;
+}
+
+@media (min-width: 768px){
+    .location-bar .inner-box,
+    .article-list-area .notice .inner {
+        width: 65.2%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .list-board-section .list-area,
+    .u_cbox_paginate_ico {
+        width: 65.1%;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
+    <link rel="stylesheet" href="{% static 'community/css/view.css' %}">
+{% endblock %}
+
+{% block head_script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'js/lib.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<body id="body_wrapper">
+    <header id="hd" class="header fix">
+        <div class="gnb" role="banner">
+            <div class="gnb_l"></div>
+            <h1 style="text-align: center;">
+                <a href="{% url 'community:index' %}" id="cafeInfo"><img src="{% static 'images/logo_blue.png' %}"></a>
+            </h1>
+            <div class="gnb_sc">
+                <a href="{% url 'community:_search' %}" class="gnb_search" role="button"></a>
+            </div>
+            <div class="gnb_r">
+                <a href="#profile-info-menu" class="gnb_ham _stopDefault" data-uc-click="slipout"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="view-content">
+        <div class="post_title">
+            <div class="tit_menu">
+                {% if post.category == 'NTC' %}
+                <a href="{% url 'community:notice' %}" class="border_name">
+                    <span class="ellip">< {{ post.get_category_display }}</span>
+                </a>
+                {% else %}
+                <a href="{% url 'community:board' post.category %}" class="border_name">
+                    <span class="ellip">< {{ post.get_category_display }}</span>
+                </a>
+                {% endif %}
+            </div>
+            <h2 class="tit">{{ post.title }}</h2>
+            <div class="user_wrap">
+                <a href="javascript:void(0);" class="thumb _stopDefault">
+                    {% if post.category == 'BMB' or post.category == 'TWK' %}
+                        {% if user.is_staff or user.is_supuruser %}
+                        <img src="{{ post.author.profile_image }}" alt="">
+                        {% else %}
+                        <img src="https://ssl.pstatic.net/static/m/cafe/mobile/cafe_profile_80.png" alt="" width="40" height="40">
+                        {% endif %}
+                    {% else %}
+                    <img src="{{ post.author.profile_image }}" alt="">
+                    {% endif %}
+                </a>
+                <div class="info">
+                    <a href="javascript:void(0)" class="nick _stopDefault">
+                        <span class="end_user_nick">
+                            <span class="ellip">
+                                {% if post.category == 'BMB' or post.category == 'TWK' %}
+                                    {% if user.is_staff or user.is_supuruser %}
+                                    {{ post.author.nickname }}
+                                    {% else %}
+                                    익명
+                                    {% endif %}
+                                {% else %}
+                                {{ post.author.nickname }}
+                                {% endif %}
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="info">
+                    <span class="date font_l">{{ post.writed_time|date:"n/j H:i" }}</span>
+                    <span class="no font_l">조회 <em>{{ post.views }}</em></span>
+                    <span class="no font_l">추천 <em>{{ post.likes.count }}</em></span>
+                </div>
+            </div>
+            <div class="aside_layer uc-dropdown-menu" data-uc-dropdown="click">
+                <a href="javascript:void(0)" class="btn_aside _stopDefault is-dropdown-toggle" role="button">
+                    <span class="more">본문 기타 기능</span></a>
+                <div id="optionLayer" class="layer is-dropdown-wrapper is-nav-dropdown">
+                    <ul>
+                        {% if post.author == user.profile %}
+                        <li><a href="{% url 'community:update_post' post.category post.id %}" class="btn">수정</a></li>
+                        <li><a href="{% url 'community:delete_post' post.category post.id %}" class="btn">삭제</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'community:report_post' post.category post.id %}" class="btn">신고</a></li>
+                        <li><a href="javascript:void(0)" class="btn _stopDefault" onclick="copy_url_to_clipboard()">URL 복사</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="post_cont font_zoom1" style="overflow-x:auto;">
+            <div class="swiper-container" style="margin-bottom: 20px; text-align: center;">
+                <div class="swiper-wrapper"style="background-color: #000000;">
+                    {% for image in post.images.all %}
+                    <div class="swiper-slide"><img class="swiper-slide" src="{{ image.src }}" alt=""></div>
+                    {% endfor %}
+                </div>
+
+                <div class="swiper-button-next"><i class="la la-angle-right"></i></div>
+                <div class="swiper-button-prev"><i class="la la-angle-left"></i></div>
+            </div>
+            <p>{{ post.description|linebreaksbr }}</p>
+        </div>
+
+        <div class="section_comment">
+            {% include 'community/comment_list.html' %}
+            {% include 'community/comment.html' %}
+        </div>
+    </div>
+    {% include 'community/footer.html' %}
+
+    {% include 'footer.html' %}
+    <!-- 메뉴 -->
+    {% include 'community/menu.html' %}
+
+</body>
+{% endblock %}
+
+{% block script %}
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/extends.js' %}"></script>
+<script src="{% static 'community/js/view.js' %}"></script>
+<script>
+    function copy_url_to_clipboard(){
+        var tempElem = document.createElement('textarea');
+        tempElem.value = document.location.href;
+        document.body.appendChild(tempElem);
+        tempElem.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempElem);
+    }
+
+    function loadCommentWrite(_this, commentID) {
+        let action = "/recomment/comment/" + commentID;
+
+        $('#comment_writer').remove();
+
+        markup = `
+            {% include 'community/comment.html' %}
+        `;
+
+        comment = $(_this).parents('.comment')
+        comment.after(markup)
+        recomment = comment.next()
+        $(recomment).attr('id', 'comment_writer')
+        $(recomment).find('form').attr('action', action)
+        $(recomment).find('#content').attr('placeholder', '답글을 남겨보세요.')
+        {% if user.is_authenticated %}
+        $(recomment).find('button').attr('onclick', 'write_recomment(this)')
+        {% else %}
+        $(recomment).find('button').attr('onclick', 'login()')
+        {% endif %}
+    }
+
+    function removeCommentWrite() {
+        $('#comment_writer').remove();
+    }
+
+    function login(){
+        location.href = '{% url "account:login" %}?next=' + document.location.pathname; 
+    }
+</script>
+<script>
+    function fnMove(seq) {
+        var offset = $("#" + seq).offset();
+        $('html, body').animate({ scrollTop: offset.top }, 400);
+    }
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+{% endblock %}
+
+</html>

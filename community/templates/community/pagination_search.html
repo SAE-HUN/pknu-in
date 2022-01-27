@@ -1,0 +1,16 @@
+{% if posts.has_next %}
+<div id="moreButtonArea" class="section_footer">
+    <div class="more_bar">
+        <a href="javascript:void(0)" onclick="more('{{ keyword }}', '{{ category }}', '{{ type }}', '{{ order }}', '{{ posts.next_page_number }}')" id="moreButton" class="more_tab _stopDefault">
+            <em>더보기</em>
+            <span class="cnt_wrap">
+                <span class="cnt">
+                    {% widthratio 20 1 posts.number %}
+                </span>
+                <span class="slash"></span>
+                <span class="total">{{ posts.paginator.count }}</span>
+            </span>
+        </a>
+    </div>
+</div>
+{% endif %}
